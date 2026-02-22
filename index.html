@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFW HVAC Pro — Coming Soon</title>
+    <meta name="description" content="Professional HVAC services coming soon to the Dallas-Fort Worth metroplex. Residential and commercial heating, cooling, and ventilation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-950: #0a0f1a;
+            --slate-900: #111827;
+            --slate-800: #1e293b;
+            --slate-600: #475569;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --ice-blue: #38bdf8;
+            --ice-blue-dim: #0c4a6e;
+            --flame: #f97316;
+            --flame-dim: #7c2d12;
+            --white: #f1f5f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--slate-950);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+
+        /* Radial glow */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(ellipse, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        /* Dual temperature icons */
+        .icon-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            animation: fadeDown 0.8s ease-out both;
+        }
+
+        .icon-cool, .icon-heat {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            position: relative;
+        }
+
+        .icon-cool {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--ice-blue);
+        }
+
+        .icon-heat {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            color: var(--flame);
+        }
+
+        .icon-cool::after, .icon-heat::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .icon-cool::after {
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .icon-heat::after {
+            border: 1px solid rgba(249, 115, 22, 0.1);
+            animation-delay: 1.5s;
+        }
+
+        .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            letter-spacing: 0.06em;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+            animation: fadeDown 0.8s ease-out 0.15s both;
+        }
+
+        .brand .dfw {
+            color: var(--ice-blue);
+        }
+
+        .brand .hvac {
+            color: var(--white);
+        }
+
+        .brand .pro {
+            color: var(--flame);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--slate-400);
+            margin-bottom: 3rem;
+            animation: fadeDown 0.8s ease-out 0.3s both;
+        }
+
+        /* Divider line */
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--slate-600), transparent);
+            margin-bottom: 2.5rem;
+            animation: fadeDown 0.8s ease-out 0.4s both;
+        }
+
+        .coming-soon {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            letter-spacing: 0.3em;
+            color: var(--slate-400);
+            margin-bottom: 1.5rem;
+            animation: fadeDown 0.8s ease-out 0.5s both;
+        }
+
+        .description {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--slate-300);
+            margin-bottom: 3rem;
+            max-width: 500px;
+            animation: fadeDown 0.8s ease-out 0.6s both;
+        }
+
+        /* Services pills */
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-bottom: 3rem;
+            animation: fadeDown 0.8s ease-out 0.7s both;
+        }
+
+        .pill {
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            background: var(--slate-900);
+            border: 1px solid var(--slate-800);
+            color: var(--slate-300);
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            border-color: var(--ice-blue-dim);
+            color: var(--ice-blue);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        /* Contact bar */
+        .contact-bar {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.2rem 2rem;
+            background: var(--slate-900);
+            border: 1px solid var(--slate-800);
+            border-radius: 12px;
+            animation: fadeDown 0.8s ease-out 0.85s both;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--slate-300);
+            font-size: 0.88rem;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .contact-item:hover {
+            color: var(--ice-blue);
+        }
+
+        .contact-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        .contact-separator {
+            width: 1px;
+            height: 20px;
+            background: var(--slate-800);
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 1.5rem;
+            font-size: 0.72rem;
+            color: var(--slate-600);
+            letter-spacing: 0.05em;
+            animation: fadeDown 0.8s ease-out 1s both;
+        }
+
+        /* Animations */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .contact-bar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.2rem 1.5rem;
+            }
+
+            .contact-separator {
+                width: 40px;
+                height: 1px;
+            }
+
+            .services {
+                gap: 0.5rem;
+            }
+
+            .pill {
+                font-size: 0.72rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="icon-row">
+            <div class="icon-cool">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/>
+                </svg>
+            </div>
+            <div class="icon-heat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M12 2c0 4-4 6-4 10a4 4 0 1 0 8 0c0-4-4-6-4-10z"/>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="brand">
+            <span class="dfw">DFW</span> <span class="hvac">HVAC</span> <span class="pro">PRO</span>
+        </h1>
+
+        <p class="tagline">Dallas–Fort Worth Metroplex</p>
+
+        <div class="divider"></div>
+
+        <p class="coming-soon">Coming Soon</p>
+
+        <p class="description">
+            Professional heating, cooling, and ventilation services for residential and commercial properties across the DFW metroplex.
+        </p>
+
+        <div class="services">
+            <span class="pill">AC Repair</span>
+            <span class="pill">Heating Systems</span>
+            <span class="pill">Installation</span>
+            <span class="pill">Maintenance</span>
+            <span class="pill">Air Quality</span>
+            <span class="pill">Commercial HVAC</span>
+        </div>
+
+        <div class="contact-bar">
+            <a href="mailto:matt@dfwhvacpro.com" class="contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M22 4L12 13 2 4"/>
+                </svg>
+                matt@dfwhvacpro.com
+            </a>
+
+        </div>
+    </div>
+
+    <p class="footer">© 2026 DFW HVAC Pro</p>
+</body>
+</html>
+<!-- * lone wolf, own tools | Matt Livingston -->
